@@ -1,5 +1,8 @@
 import { EQM } from "../types"
+import db from "../config/db"
 
-export const basicRecommendationSearch: EQM = (request, response, next) => {
-  response.send("basic recommendation search")
+export const suggestionSearch: EQM = async (request, response, next) => {
+  const result = await db.query("SELECT NOW()")
+  console.log(result)
+  response.json(result.rows)
 }

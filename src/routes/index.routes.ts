@@ -1,7 +1,7 @@
 import { Router } from "express"
-import { basicRecommendationSearch } from "../controller/searchController"
+import { suggestionSearch } from "../controller/searchController"
 const router = Router()
 
-router.get("/search", basicRecommendationSearch)
+router.get("/search", suggestionSearch)
 
 export default router
