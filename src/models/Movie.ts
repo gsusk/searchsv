@@ -14,13 +14,11 @@ type MovieModel = {
 }
 
 class Movie {
-  public async getMoviesByTextSearch(query: string) {
+  public async getMoviesByTextDocument(query: string) {
     const client = await pool.connect()
-    console.log(query)
-    const { rows } = await client.query<MovieModel>(
-      `SELECT * FROM movies WHERE title ILIKE '%' || $1 || '%' LIMIT 50`,
-      [query],
-    )
+    const sql = /*sql*/ `SELECT title, year, actors FROM movies WHERE document @@ plainto_tsquery($1) LIMIT 10`
+    const { rows } = await client.query<MovieModel>(sql, [query.trim()])
+    console.log(rows)
     client.release()
     return rows
   }
