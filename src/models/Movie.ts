@@ -16,8 +16,8 @@ type MovieModel = {
 class Movie {
   public async getMoviesByTextDocument(query: string) {
     const client = await pool.connect()
-    const sql = /*sql*/ `SELECT title, year, actors FROM movies WHERE document @@ plainto_tsquery($1) LIMIT 10`
-    const { rows } = await client.query<MovieModel>(sql, [query.trim()])
+    const sql = /*sql*/ `SELECT title, image, score, year FROM movies WHERE document @@ plainto_tsquery($1) LIMIT 6`
+    const { rows } = await client.query<MovieModel>(sql, [query])
     console.log(rows)
     client.release()
     return rows
